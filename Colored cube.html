@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> אלחנן סולברג קוביה צבעונית גירסה שניה
+    </title>
+    <script>
+        const mytemplate = document.createElement('template');
+        mytemplate.innerHTML = `<style>
+    .mydiv{
+        display: inline-block;
+        width: 210px;
+        height: 210px;
+     }
+    .a{
+        display: inline-block;
+        background-color:blue; 
+        width: 50px;
+        height: 50px;
+    }
+    .b{
+        display: inline-block;
+        background-color: rgb(255, 0, 0);
+        width: 50px;
+        height: 50px;
+    }
+    .c{
+        display: inline-block;
+        background-color:rgb(0, 255, 0); 
+        width: 50px;
+        height: 50px;
+    }
+    .d{
+        display: inline-block;
+        background-color: rgb(255, 255, 0);
+        width: 50px;
+        height: 50px;
+    }
+    </style>
+    <div class="mydiv">
+        <div class="a" ></div>
+        <div class="b"></div>
+        <br>
+        <div class="c"></div>
+        <div class="d"></div>
+    </div>`;
+        class myclass extends HTMLElement {
+            constructor() {
+                super();
+                this._shadowRoot = this.attachShadow({ mode: 'open' });
+                this._shadowRoot.appendChild(mytemplate.content.cloneNode(true));
+                this.$mydiv = this._shadowRoot.querySelector('.a')
+                this.myobg={};
+                this.$bto = this._shadowRoot.querySelector('.mydiv')
+                console.log(this.$bto)
+                this.$bto.addEventListener('click', () => {
+                    this.dispatchEvent(
+                        new CustomEvent('aaa', {
+                            detail: 'mooooooooooo',
+                        })
+                    )
+                })
+            }
+        static get observedAttributes() {
+            return ['bbb',"colo"];}
+        attributeChangedCallback(name, boldVal, cnewVal) {
+            console.log(`att ${name} change from ${boldVal} to ${cnewVal}`)
+            this.myobg[name] = cnewVal;
+            console.log(this.myobg)
+            this.render(name);
+        }
+        render(name) {
+            console.log(name)
+            console.log( this.myobg[name])
+            this.$mydiv.style.background = this.myobg[name];
+            this.$mydiv.style.width = "100px";
+        }
+        
+    }
+
+            window.customElements.define('my-class', myclass);
+    </script>
+</head>
+<body>
+    <my-class bbb="pink" id="myybutton"></my-class>
+    <my-class bbb="black" id="myybu"></my-class>
+    <my-class colo="black"></my-class>
+    <my-class colo=""></my-class>
+    <my-class></my-class>
+    <my-class></my-class>
+    <script>
+        let a = document.getElementById('myybutton')
+        a.addEventListener('aaa', value => {
+            alert('kkkkkkkk')
+        })
+        let b = document.getElementById('myybu')
+        b.addEventListener('aaa', value => {
+            alert('k')
+        })
+    </script>
+</body>
+</html>
