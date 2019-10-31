@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>אלחנן סולברג קוביה צבעונית גירסה ראשונה</title>
+    <script>
+        const mytemplate = document.createElement('template');
+        mytemplate.innerHTML=`<style>
+    .mydiv{
+        display: inline-block;
+        width: 210px;
+        height: 210px;
+     }
+    .a{
+        display: inline-block;
+        background-color:blue; 
+        width: 50px;
+        height: 50px;
+    }
+    .b{
+        display: inline-block;
+        background-color: rgb(255, 0, 0);
+        width: 50px;
+        height: 50px;
+    }
+    .c{
+        display: inline-block;
+        background-color:rgb(0, 255, 0); 
+        width: 50px;
+        height: 50px;
+    }
+    .d{
+        display: inline-block;
+        background-color: rgb(255, 255, 0);
+        width: 50px;
+        height: 50px;
+    }
+    </style>
+    <div class="mydiv">
+        <div class="a" id="a"></div>
+        <div class="b"></div>
+        <br>
+        <div class="c"></div>
+        <div class="d"></div>
+    </div>`;
+    class myclass extends HTMLElement {
+        constructor() {
+            super();
+            this._shadowRoot = this.attachShadow({ mode: 'open' });
+            this._shadowRoot.appendChild(mytemplate.content.cloneNode(true));
+        }
+    }
+
+    window.customElements.define('my-class', myclass);
+    </script>
+</head>
+<body>
+    <my-class></my-class>
+    <my-class></my-class>
+    <my-class></my-class>
+    <my-class></my-class>
+    <my-class></my-class>
+    <my-class></my-class>
+</body>
+</html>
